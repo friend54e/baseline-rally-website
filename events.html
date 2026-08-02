@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- PREVIEW BUILD — keeps this out of search results while it is a work in
+       progress. REMOVE BEFORE THE REAL LAUNCH, or the live site will never
+       be indexed by Google. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Events — Baseline Rally</title>
+  <meta name="description" content="Upcoming Baseline Rally events and ticket sales, hosted through Eventbrite." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="index.html" aria-label="Baseline Rally home">B<span>L</span>R</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="sponsorship.html">Sponsorship</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" style="padding-top:70px; padding-bottom:70px;">
+      <h1>Events</h1>
+      <p class="tagline">Tickets &amp; Registration via Eventbrite</p>
+    </section>
+
+    <section class="section">
+      <div class="container">
+
+        <!-- ============================================================
+             NO EVENT AVAILABLE (default state)
+             When a rally is announced, comment this block out and
+             un-comment the "EVENT AVAILABLE" template below.
+             ============================================================ -->
+        <div class="status-block" id="no-event">
+          <p class="big">Events Coming Soon</p>
+          <p>Follow <a href="https://www.instagram.com/baselinerally.official" target="_blank" rel="noopener">@baselinerally.official</a> for future rally announcements and ticket-release information.</p>
+        </div>
+
+        <!-- ============================================================
+             EVENT AVAILABLE template — fill in and un-comment when live.
+             Replace EVENTBRITE_LINK with the real URL when provided.
+             ============================================================
+        <div class="event-card">
+          <div class="media-placeholder">Featured Event Image — add from Dropbox</div>
+          <div class="meta">
+            <p class="date">Event Date — e.g. Saturday, September 12, 2026</p>
+            <h2>Event Name</h2>
+            <p>Short event description goes here. A scenic route, a great destination, and good company.</p>
+            <a class="btn" href="EVENTBRITE_LINK" target="_blank" rel="noopener">View Event &amp; Purchase Tickets</a>
+          </div>
+        </div>
+        -->
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">B<span>L</span>R</a>
+        <p style="color:var(--muted); max-width:260px; margin-top:12px;">Baseline Rally LLC — organized leisure driving experiences across Michigan.</p>
+      </div>
+      <div>
+        <p class="footer-heading">Explore</p>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="sponsorship.html">Sponsorship</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">Connect</p>
+        <ul class="footer-links">
+          <li><a href="mailto:baselinerallys@gmail.com">baselinerallys@gmail.com</a></li>
+        </ul>
+        <div class="footer-social" style="margin-top:12px;">
+          <a href="https://www.instagram.com/baselinerally.official" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/baselinerally" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <p class="copyright">&copy; 2026 Baseline Rally LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

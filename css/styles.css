@@ -1,0 +1,342 @@
+/* ===============================================================
+   Baseline Rally (BLR) — Global Stylesheet
+   =============================================================== */
+
+/* ---- Fonts ---------------------------------------------------- */
+/* Blade Runner: bundled locally so it works for ALL visitors.
+   local() lets your own installed copy load instantly; the url()
+   fallback covers everyone else via the bundled .ttf. */
+@font-face {
+  font-family: "Blade Runner Movie Font";
+  src: local("Blade Runner Movie Font"),
+       url("../fonts/BladeRunnerMovieFont.ttf") format("truetype");
+  font-display: swap;
+}
+
+/* !! IMPORTANT — DO NOT set text-transform: uppercase on brand text !!
+   In this font the UPPERCASE slots B, L and R do not contain letters at
+   all — they contain movie logo artwork:
+       B -> running-man figure        (advance width 1.309em)
+       L -> "BLADE" wordmark          (advance width 1.096em)
+       R -> full "BLADE RUNNER" logo  (advance width 4.670em)
+   Those are exactly the letters in "BLR" / "Baseline Rally", so uppercase
+   renders the logo as figure + BLADE + BLADE RUNNER instead of "BLR".
+   The lowercase slots hold the real letterforms, which are drawn as caps
+   anyway. So every brand-font element below forces text-transform:lowercase
+   and the HTML keeps normal "BLR" / "Baseline Rally" text for screen
+   readers and SEO. All other letters are unaffected. */
+
+/* Anton (supporting display font) loaded from Google Fonts in each
+   page <head>. Arial is the always-present fallback. */
+
+/* ---- Design tokens ------------------------------------------- */
+:root {
+  --black: #0d0d0d;
+  --panel: #151515;
+  --panel-2: #1e1e1e;
+  --white: #ededed;
+  --muted: #8c8c8c;
+
+  /* Rally red is reserved for brand moments only: the word "Rally" in the
+     hero, the event banner, and the tagline emphasis in the creed / the
+     brand name in the sponsorship heading. Scarcity is the point — it reads
+     as deliberate instead of decorative. Don't spend it on links or buttons.
+     White on #e10600 measures 4.97:1, which clears WCAG AA for body text. */
+  --brand-red: #e10600;
+  --brand-red-dark: #b00500;
+
+  /* General-purpose accent is a light grey. Everything that used to be red
+     (links, card links, status text, footer hovers) inherits this. */
+  --accent: #d6d6d6;
+  --accent-dark: #ffffff;
+
+  --border: #2e2e2e;
+  --max: 1120px;
+  --radius: 0;              /* brutalist: no rounded corners, anywhere */
+  --brand-font: "Blade Runner Movie Font", "Anton", Arial, sans-serif;
+  --display-font: "Anton", Arial, sans-serif;
+  --body-font: Arial, Helvetica, "Segoe UI", sans-serif;
+}
+
+/* ---- Reset --------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--body-font);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+/* Brand / display typography */
+/* text-transform: lowercase is REQUIRED here — see the @font-face note above */
+.brand-font { font-family: var(--brand-font); letter-spacing: 2px; text-transform: lowercase; }
+h1, h2, h3 { font-family: var(--display-font); line-height: 1.05; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 .5em; }
+h1 { font-size: clamp(2.2rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+h3 { font-size: 1.2rem; letter-spacing: .5px; }
+
+/* ---- Skip link (accessibility) ------------------------------ */
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 200;
+  background: var(--white); color: var(--black); padding: 10px 16px; border-radius: 0;
+}
+.skip-link:focus { left: 0; }
+
+/* ---- Header / Nav ------------------------------------------- */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 72px; gap: 16px;
+}
+.logo {
+  font-family: var(--brand-font);
+  font-size: 2rem; color: var(--white); letter-spacing: 3px;
+  text-decoration: none; line-height: 1;
+  /* REQUIRED — see the @font-face note above. "BLR" is all three broken
+     uppercase slots, so without this the logo renders as movie artwork. */
+  text-transform: lowercase;
+}
+.logo:hover { color: var(--accent); text-decoration: none; }
+.logo span { color: var(--accent); }
+
+/* Header logo is solid white. `inherit` (rather than a hard-coded white)
+   means the L follows the parent on hover too, so all three letters
+   recolor together instead of the L sitting there already-red. */
+.site-header .logo span { color: inherit; }
+
+.nav-links { display: flex; gap: 8px; list-style: none; margin: 0; padding: 0; align-items: center; }
+.nav-links a {
+  color: var(--white); text-transform: uppercase; font-weight: bold;
+  font-size: .95rem; letter-spacing: 1px; padding: 8px 14px; border-radius: 0;
+  /* Multi-word labels ("About Us", "Terms & Conditions") must never break
+     mid-label — a wrapped label splits its hover/active highlight in two. */
+  white-space: nowrap;
+}
+.nav-links a:hover, .nav-links a.active { background: var(--panel-2); color: var(--accent); text-decoration: none; }
+/* Tab navigation is only usable if focus is visible. :focus-visible shows this
+   for keyboard users without drawing an outline on mouse clicks. */
+.nav-links a:focus-visible,
+.nav-toggle:focus-visible,
+.logo:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+
+.nav-toggle {
+  display: none; background: none; border: 2px solid var(--border); color: var(--white);
+  width: 48px; height: 48px; border-radius: 0; cursor: pointer; font-size: 1.4rem; line-height: 1;
+}
+
+/* ---- Event announcement banner ------------------------------ */
+.event-banner {
+  display: block; background: var(--brand-red); color: #fff; text-align: center;
+  padding: 12px 16px; text-decoration: none; overflow: hidden;
+}
+.event-banner:hover { background: var(--brand-red-dark); color: #fff; text-decoration: none; }
+/* Keyboard users need to see focus land on the banner too, not just hover. */
+.event-banner:focus-visible { outline: 3px solid var(--white); outline-offset: -3px; }
+.event-banner .ticker {
+  display: inline-block; white-space: nowrap; font-family: var(--display-font);
+  letter-spacing: 2px; text-transform: uppercase; font-size: 1rem;
+  animation: scroll-left 18s linear infinite;
+}
+@keyframes scroll-left {
+  0% { transform: translateX(60%); }
+  100% { transform: translateX(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-banner .ticker { animation: none; }
+}
+
+/* ---- Hero --------------------------------------------------- */
+.hero {
+  position: relative; text-align: center;
+  padding: clamp(64px, 14vw, 150px) 20px;
+  /* The red glow went with the red banner — a flat grey ramp lets the
+     wordmark carry the page instead of competing with a coloured wash. */
+  background: linear-gradient(180deg, #171717, #0d0d0d);
+  border-bottom: 1px solid var(--border);
+}
+/* text-transform overrides the uppercase inherited from the h1 rule —
+   REQUIRED, see the @font-face note above ("Baseline Rally" has B, L and R). */
+/* text-indent cancels the trailing letter-space. CSS puts letter-spacing
+   after the LAST character as well, so centred text drifts left by half the
+   tracking (6px here => 3px). Indenting by the same amount re-centres it.
+   Keep text-indent equal to letter-spacing on any centred text. */
+.hero .brand-title { font-family: var(--brand-font); font-size: clamp(3rem, 12vw, 7rem); letter-spacing: 6px; text-indent: 6px; margin: 0; text-transform: lowercase; }
+/* The one and only place rally red survives. */
+.hero .brand-title .accent { color: var(--brand-red); }
+.hero p.tagline { color: var(--muted); font-size: 1.2rem; margin-top: 14px; text-transform: uppercase; letter-spacing: 3px; text-indent: 3px; }
+/* On pages where the heading is the hero's only content, drop its bottom
+   margin — otherwise it stacks onto the hero's padding and the heading sits
+   visibly high in the band. Scoped to :last-child so heroes that do have a
+   tagline keep the gap between the two. */
+.hero h1:last-child { margin-bottom: 0; }
+
+/* Optical correction for the oblique face. With the tracking cancelled above,
+   the title's advance box is now mathematically centred — but this typeface
+   slants right, so the ink overhangs its box (the Y's apex juts further right
+   than the B's base juts left) and the wordmark still reads right-of-centre.
+   Measured at 7.5px of overhang on a 112px title = 0.067em, so an em value
+   stays correct at every font size.
+   Because the wordmark is stacked, each line gets its own correction — the
+   overhang depends on which letter ends the line, and "Baseline" (E) leans
+   less than "Rally" (Y). Values are in em so they hold at every font size. */
+.hero .brand-title .line { display: block; position: relative; }
+.hero .brand-title .line:nth-child(1) { left: -0.031em; }  /* "Baseline" ends in E: measured 3.5px lean at 112px */
+.hero .brand-title .line:nth-child(2) { left: -0.067em; }  /* "Rally" ends in Y: measured 7.5px lean at 112px */
+
+/* image placeholder box */
+.media-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 320px; background:
+    repeating-linear-gradient(45deg, #131313, #131313 18px, #171717 18px, #171717 36px);
+  border: 1px dashed var(--border); border-radius: var(--radius);
+  color: var(--muted); text-transform: uppercase; letter-spacing: 2px;
+  font-family: var(--display-font); text-align: center; padding: 24px;
+}
+
+/* ---- Buttons ------------------------------------------------ */
+/* Square, hard-edged, no lift on hover — the hover is a straight
+   colour inversion, which is the brutalist move. */
+.btn {
+  display: inline-block; background: var(--white); color: var(--black);
+  font-family: var(--display-font); text-transform: uppercase; letter-spacing: 2px; text-indent: 2px;
+  padding: 15px 34px; border-radius: 0; border: 2px solid var(--white);
+  cursor: pointer; transition: background .12s ease, color .12s ease, border-color .12s ease;
+}
+.btn:hover { background: transparent; color: var(--white); border-color: var(--white); text-decoration: none; }
+.btn.secondary { background: transparent; color: var(--white); border-color: var(--border); }
+.btn.secondary:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+/* ---- Sections & layout ------------------------------------- */
+.section { padding: clamp(48px, 8vw, 90px) 0; }
+.section.alt { background: var(--panel); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.section-head { text-align: center; margin-bottom: 40px; }
+.section-head p { color: var(--muted); max-width: 640px; margin: 0 auto; }
+
+.prose { max-width: 760px; margin: 0 auto; }
+.prose p { margin: 0 0 1.2em; }
+/* No text-transform: the creed is set in the sentence case written in the
+   HTML, so the copy in the markup is exactly what renders. text-indent
+   matches letter-spacing to keep the centring honest (see .brand-title). */
+.creed { text-align: center; font-family: var(--display-font); letter-spacing: 1px; text-indent: 1px; font-size: 1.3rem; line-height: 1.5; margin: 32px 0; color: var(--white); }
+/* Creed text is deliberately one uniform colour on both pages — no emphasis
+   span. (A .creed .accent rule used to live here; removed once unused.) */
+
+/* nav cards on homepage */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+/* Static by design — no :hover on the card itself. The card is a <div>; only
+   the "card-link" inside it is clickable, and that link keeps its own hover,
+   so nothing loses its affordance. (transition removed with the hover: with
+   nothing left to animate it was dead weight.) */
+.card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 30px 26px; text-align: center;
+}
+.card h3 { color: var(--white); }
+.card p { color: var(--muted); margin: 0 0 18px; }
+.card a.card-link { color: var(--accent); font-family: var(--display-font); text-transform: uppercase; letter-spacing: 1px; }
+
+/* status message (events coming soon) */
+.status-block { text-align: center; padding: 60px 20px; }
+.status-block .big {
+  font-family: var(--display-font); text-transform: uppercase; letter-spacing: 4px; text-indent: 4px;
+  font-size: clamp(2rem, 7vw, 3.6rem); color: var(--accent); margin: 0 0 16px;
+}
+.status-block p { color: var(--muted); }
+
+/* event card (when an event exists) */
+.event-card {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px;
+}
+.event-card .meta .date { color: var(--accent); font-family: var(--display-font); letter-spacing: 2px; text-transform: uppercase; }
+
+/* contact strip */
+.contact-strip { text-align: center; }
+.contact-strip a { font-family: var(--display-font); font-size: 1.3rem; letter-spacing: 1px; }
+
+/* ---- Terms page -------------------------------------------- */
+/* padding matches .container's 20px — this block sits directly in the
+   <section> rather than inside a .container, so it has to supply its own
+   gutters or the text runs edge-to-edge below 820px. */
+.legal { max-width: 820px; margin: 0 auto; padding: 0 20px; text-align: center; }
+.legal .effective { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+.legal h2 { font-size: 1.5rem; margin-top: 2em; color: var(--white); }
+/* Markers must sit inside the flow, otherwise they stay pinned left while the
+   text centres and the bullets read as detached. */
+.legal ul { padding-left: 0; list-style-position: inside; }
+.legal li { margin-bottom: .4em; }
+.legal .disclaimer { background: var(--panel); border-left: 4px solid var(--white); padding: 24px 26px; border-radius: 0; margin-top: 2.5em; }
+
+/* ---- Footer ------------------------------------------------- */
+.site-footer {
+  background: var(--panel); border-top: 1px solid var(--border);
+  padding: 48px 0 30px; margin-top: auto;
+}
+.footer-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; align-items: flex-start; }
+.footer-brand .logo { font-size: 1.6rem; }
+.footer-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-links a, .footer-social a { color: var(--muted); }
+.footer-links a:hover, .footer-social a:hover { color: var(--accent); }
+.footer-social { display: flex; gap: 18px; flex-wrap: wrap; }
+.footer-heading { font-family: var(--display-font); text-transform: uppercase; letter-spacing: 1px; font-size: .9rem; color: var(--white); margin: 0 0 12px; }
+.copyright { text-align: center; color: var(--muted); font-size: .9rem; margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
+
+/* page wrapper so footer sits at bottom */
+body { display: flex; flex-direction: column; min-height: 100vh; }
+main { flex: 1 0 auto; }
+
+/* ---- Responsive -------------------------------------------- */
+/* 900px, not 760px: five items ending in "Terms & Conditions" no longer fit
+   on one row much below this, and the horizontal nav starts colliding with
+   the logo. Switching to the hamburger earlier is better than a cramped row.
+   (The vertical menu has plenty of room for the full label.) */
+@media (max-width: 900px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: absolute; top: 72px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--black); border-bottom: 1px solid var(--border);
+    max-height: 0; overflow: hidden;
+    /* visibility is what removes the links from the tab order. max-height:0
+       with overflow:hidden only clips them visually — they stay focusable, so
+       keyboard users tab into an invisible menu and lose track of focus.
+       The 0s delay keeps them visible for the .25s collapse animation, then
+       hides them; opening flips visibility instantly so the reveal animates. */
+    visibility: hidden;
+    transition: max-height .25s ease, visibility 0s linear .25s;
+  }
+  .nav-links.open {
+    max-height: 400px; visibility: visible;
+    transition: max-height .25s ease, visibility 0s;
+  }
+  /* The cramped-menu fix. These links are inline boxes by default, so in the
+     dropdown their padding, divider border and active highlight all
+     shrink-wrapped the text instead of filling the row — and vertical padding
+     on an inline box doesn't grow the line at all, which is what squashed the
+     rows together. Making them flex rows fixes all of it; min-height gives a
+     48px touch target, the accessibility floor for tappable controls. */
+  .nav-links a {
+    display: flex; align-items: center;
+    min-height: 48px; padding: 12px 20px;
+    border-top: 1px solid var(--border); border-radius: 0;
+  }
+}
+
+/* Kept at its original 760px — only the nav needed the earlier breakpoint. */
+@media (max-width: 760px) {
+  .event-card { grid-template-columns: 1fr; }
+}
