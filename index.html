@@ -8,11 +8,21 @@
        be indexed by Google. -->
   <meta name="robots" content="noindex, nofollow" />
   <title>Baseline Rally — For the Love of Cars</title>
+  <!-- Link-preview blurb hidden for the client preview. Discord, Slack and
+       iMessage show this as the description under the title when the URL is
+       pasted. Un-comment before launch: it is also Google's search snippet.
   <meta name="description" content="Baseline Rally (BLR) is a Michigan automotive community hosting accessible leisure rallies, meets, and events. It does not matter what you drive." />
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <!-- Checkered-flag favicon. The SVG is what modern browsers use (crisp at
+       any size); the PNG and .ico are fallbacks. Kept to a 4x4 grid because a
+       finer check turns to grey mush at 16px. -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -26,7 +36,6 @@
         <li><a href="about.html">About Us</a></li>
         <li><a href="events.html">Events</a></li>
         <li><a href="sponsorship.html">Sponsorship</a></li>
-        <li><a href="terms.html">Terms &amp; Conditions</a></li>
       </ul>
     </div>
   </header>
@@ -48,7 +57,7 @@
       <!-- Two block-level lines so the wordmark always stacks at every width,
            rather than only wrapping once the screen gets narrow. Each line is
            then centred on its own, which is what makes it read as balanced. -->
-      <h1 class="brand-title"><span class="line">Baseline</span><span class="line accent">Rally</span></h1>
+      <h1 class="brand-title"><span class="line">Baseline</span><span class="line">Rally</span></h1>
       <p class="tagline">For the Love of Cars</p>
       <div class="container" style="margin-top:34px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
         <a class="btn" href="events.html">View Events</a>
@@ -96,7 +105,6 @@
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="logo" href="index.html">B<span>L</span>R</a>
-        <p style="color:var(--muted); max-width:260px; margin-top:12px;">Baseline Rally LLC — organized leisure driving experiences across Michigan.</p>
       </div>
       <div>
         <p class="footer-heading">Explore</p>
@@ -113,8 +121,11 @@
           <li><a href="mailto:baselinerallys@gmail.com">baselinerallys@gmail.com</a></li>
         </ul>
         <div class="footer-social" style="margin-top:12px;">
-          <a href="https://www.instagram.com/baselinerally.official" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://www.facebook.com/baselinerally" target="_blank" rel="noopener">Facebook</a>
+          <!-- Icon lives INSIDE the link so the image and the word are one
+               clickable target. alt="" because the adjacent text already names
+               the link — a screen reader would otherwise say it twice. -->
+          <a href="https://www.instagram.com/baselinerally.official" target="_blank" rel="noopener"><img src="img/instagram.svg" alt="" width="22" height="22" />Instagram</a>
+          <a href="https://www.facebook.com/baselinerally" target="_blank" rel="noopener"><img src="img/facebook.svg" alt="" width="22" height="22" />Facebook</a>
         </div>
       </div>
     </div>

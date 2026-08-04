@@ -37,10 +37,10 @@
   --white: #ededed;
   --muted: #8c8c8c;
 
-  /* Rally red is reserved for brand moments only: the word "Rally" in the
-     hero, the event banner, and the tagline emphasis in the creed / the
-     brand name in the sponsorship heading. Scarcity is the point — it reads
-     as deliberate instead of decorative. Don't spend it on links or buttons.
+  /* Rally red is now used in exactly ONE place: the event banner. The hero
+     title and the sponsorship heading are both white on black. Scarcity is
+     the point — it reads as deliberate instead of decorative. Don't spend it
+     on links or buttons.
      White on #e10600 measures 4.97:1, which clears WCAG AA for body text. */
   --brand-red: #e10600;
   --brand-red-dark: #b00500;
@@ -53,6 +53,16 @@
   --border: #2e2e2e;
   --max: 1120px;
   --radius: 0;              /* brutalist: no rounded corners, anywhere */
+
+  /* Letter spacing taken from the Canva mock, converted to em so it scales
+     with font size instead of breaking at different sizes.
+       --track-mark : Canva -21, for the "BLR" marks (header + footer)
+       --track-word : Canva  14, for the long "Baseline Rally" wordmark
+     These are the ONLY two numbers to touch if the spacing needs adjusting —
+     every rule below derives from them. See the note in the handover about
+     which Canva unit scale these assume. */
+  --track-mark: -0.021em;
+  --track-word: 0.060em;   /* opened up from 0.014 to match the Canva mock */
   --brand-font: "Blade Runner Movie Font", "Anton", Arial, sans-serif;
   --display-font: "Anton", Arial, sans-serif;
   --body-font: Arial, Helvetica, "Segoe UI", sans-serif;
@@ -104,7 +114,7 @@ h3 { font-size: 1.2rem; letter-spacing: .5px; }
 }
 .logo {
   font-family: var(--brand-font);
-  font-size: 2rem; color: var(--white); letter-spacing: 3px;
+  font-size: 2rem; color: var(--white); letter-spacing: var(--track-mark);
   text-decoration: none; line-height: 1;
   /* REQUIRED — see the @font-face note above. "BLR" is all three broken
      uppercase slots, so without this the logo renders as movie artwork. */
@@ -174,9 +184,9 @@ h3 { font-size: 1.2rem; letter-spacing: .5px; }
    after the LAST character as well, so centred text drifts left by half the
    tracking (6px here => 3px). Indenting by the same amount re-centres it.
    Keep text-indent equal to letter-spacing on any centred text. */
-.hero .brand-title { font-family: var(--brand-font); font-size: clamp(3rem, 12vw, 7rem); letter-spacing: 6px; text-indent: 6px; margin: 0; text-transform: lowercase; }
-/* The one and only place rally red survives. */
-.hero .brand-title .accent { color: var(--brand-red); }
+.hero .brand-title { font-family: var(--brand-font); font-size: clamp(3rem, 12vw, 7rem); letter-spacing: var(--track-word); text-indent: var(--track-word); margin: 0; text-transform: lowercase; }
+/* Hero wordmark is white on black — no red. (A .accent rule lived here and
+   coloured "Rally"; removed once the title went monochrome.) */
 .hero p.tagline { color: var(--muted); font-size: 1.2rem; margin-top: 14px; text-transform: uppercase; letter-spacing: 3px; text-indent: 3px; }
 /* On pages where the heading is the hero's only content, drop its bottom
    margin — otherwise it stacks onto the hero's padding and the heading sits
@@ -287,11 +297,17 @@ h3 { font-size: 1.2rem; letter-spacing: .5px; }
   padding: 48px 0 30px; margin-top: auto;
 }
 .footer-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; align-items: flex-start; }
-.footer-brand .logo { font-size: 1.6rem; }
+/* Larger than the header mark — with the description line gone it is the only
+   thing left in this column, so it carries the footer on its own. */
+.footer-brand .logo { font-size: 3.2rem; }
 .footer-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .footer-links a, .footer-social a { color: var(--muted); }
 .footer-links a:hover, .footer-social a:hover { color: var(--accent); }
 .footer-social { display: flex; gap: 18px; flex-wrap: wrap; }
+/* inline-flex keeps the icon and its label on one baseline and makes the whole
+   pair a single click/tap target rather than two adjacent ones. */
+.footer-social a { display: inline-flex; align-items: center; gap: 8px; }
+.footer-social a img { width: 22px; height: 22px; display: block; }
 .footer-heading { font-family: var(--display-font); text-transform: uppercase; letter-spacing: 1px; font-size: .9rem; color: var(--white); margin: 0 0 12px; }
 .copyright { text-align: center; color: var(--muted); font-size: .9rem; margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
 
@@ -300,11 +316,10 @@ body { display: flex; flex-direction: column; min-height: 100vh; }
 main { flex: 1 0 auto; }
 
 /* ---- Responsive -------------------------------------------- */
-/* 900px, not 760px: five items ending in "Terms & Conditions" no longer fit
-   on one row much below this, and the horizontal nav starts colliding with
-   the logo. Switching to the hamburger earlier is better than a cramped row.
-   (The vertical menu has plenty of room for the full label.) */
-@media (max-width: 900px) {
+/* Back to 760px. This was raised to 900px while "Terms & Conditions" sat in
+   the nav — that label is roughly twice the width of any other and forced the
+   row to collapse early. With four short items it fits comfortably again. */
+@media (max-width: 760px) {
   .nav-toggle { display: block; }
   .nav-links {
     position: absolute; top: 72px; left: 0; right: 0;
