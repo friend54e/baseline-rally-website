@@ -143,7 +143,7 @@ h3 { font-size: 1.2rem; letter-spacing: .5px; }
   /* Negative because the gap is mostly the mark's internal leading (its line
      box is taller than its cap height), not spacing we added. em here is the
      wordmark's own font-size, so the tuck scales with the lockup. */
-  margin-top: -0.83em;
+  margin-top: -0.70em;
 }
 .logo:hover { color: var(--accent); text-decoration: none; }
 .logo span { color: var(--accent); }
