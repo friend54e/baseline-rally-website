@@ -7,7 +7,7 @@
        progress. REMOVE BEFORE THE REAL LAUNCH, or the live site will never
        be indexed by Google. -->
   <meta name="robots" content="noindex, nofollow" />
-  <title>Events — Baseline Rally</title>
+  <title>Baseline Rally &middot; Events</title>
   <!-- Link-preview blurb hidden for the client preview. Un-comment before launch.
   <meta name="description" content="Upcoming Baseline Rally events and ticket sales, hosted through Eventbrite." />
   -->
@@ -44,22 +44,39 @@
     <section class="section">
       <div class="container">
 
-        <!-- Featured photo sits above the status block, matching the other
-             pages where the image leads the section. -->
-        <div class="media-frame" style="margin-bottom:50px;">
+        <!-- LIVE EVENT. When this one has passed, comment this card out and
+             un-comment the "Events Coming Soon" block below it. -->
+        <div class="event-card">
+          <div class="media-frame poster">
+            <img src="img/event-mc3-kickoff.jpg" width="1080" height="1350"
+                 alt="Event flyer: BLR x MC3 Fall Rally Kickoff, Cars and Coffee provided by Motor City Car Cafe, Saturday August 22, 9:30 to 11:30 a.m., 2475 W. Grand Blvd, Detroit MI 48208." />
+          </div>
+          <div class="meta">
+            <p class="date">Saturday, August 22, 2026 &nbsp;&middot;&nbsp; 9:30 &ndash; 11:30 a.m.</p>
+            <h2>BLR &times; MC3 Fall Rally Kickoff &mdash; Cars &amp; Coffee</h2>
+            <p>Join us for a morning filled with great cars, coffee from Motor City Car Cafe, beverages provided by Red Bull, and the opportunity to connect with the BLR and MC3 communities.</p>
+            <p>This event will also serve as the official kickoff for the announcement of our 2026 Fall Rally. Guests who attend in person will receive exclusive early access to purchase rally tickets one day before they are released to the public. Public ticket sales will officially open on Sunday, August 23.</p>
+            <p>Come check out the MC3 facility, meet the BLR crew, and be among the first to learn more about our upcoming rally.</p>
+            <p class="venue">MC3 Detroit<br />2475 W. Grand Blvd., Detroit, MI 48208</p>
+          </div>
+        </div>
+
+        <!-- Featured photo sits below the event card so the live event leads
+             the page. margin-top rather than -bottom now that it trails. -->
+        <div class="media-frame" style="margin-top:50px;">
           <img src="img/events-featured.jpg" width="1600" height="1067"
                alt="A Baseline Rally meet on a waterfront parking lot, with rows of cars, attendees walking between them, and the Blue Water Bridge in the background." />
         </div>
 
         <!-- ============================================================
-             NO EVENT AVAILABLE (default state)
-             When a rally is announced, comment this block out and
-             un-comment the "EVENT AVAILABLE" template below.
-             ============================================================ -->
+             NO EVENT AVAILABLE (default state) — un-comment this and comment
+             out the event card above once the event has passed.
+             ============================================================
         <div class="status-block" id="no-event">
           <p class="big">Events Coming Soon</p>
           <p>Follow <a href="https://www.instagram.com/baselinerally.official" target="_blank" rel="noopener">@baselinerally.official</a> for future rally announcements and ticket-release information.</p>
         </div>
+        ============================================================ -->
 
         <!-- ============================================================
              EVENT AVAILABLE template — fill in and un-comment when live.
