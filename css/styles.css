@@ -62,6 +62,9 @@
      every rule below derives from them. See the note in the handover about
      which Canva unit scale these assume. */
   --track-mark: -0.021em;
+  /* Tracks the header lockup's wordmark out to match the BLR above it.
+     Measured, not guessed — see the note on .logo-lockup. */
+  --logo-word-track: 0.089em;
   --track-word: 0.060em;   /* opened up from 0.014 to match the Canva mock */
   --brand-font: "Blade Runner Movie Font", "Anton", Arial, sans-serif;
   --display-font: "Anton", Arial, sans-serif;
@@ -114,11 +117,33 @@ h3 { font-size: 1.2rem; letter-spacing: .5px; }
 }
 .logo {
   font-family: var(--brand-font);
-  font-size: 2rem; color: var(--white); letter-spacing: var(--track-mark);
+  /* 2.8rem, up from 2rem: the lockup's wordmark is 0.22x the mark by design,
+     so at the old size it rendered ~7px and turned to mush. This is the
+     smallest mark that leaves the wordmark legible, and still clears the
+     header's 72px min-height. */
+  font-size: 2.8rem; color: var(--white); letter-spacing: var(--track-mark);
   text-decoration: none; line-height: 1;
   /* REQUIRED — see the @font-face note above. "BLR" is all three broken
      uppercase slots, so without this the logo renders as movie artwork. */
   text-transform: lowercase;
+}
+/* ---- Header logo lockup ------------------------------------------
+   Big BLR with the wordmark tucked underneath, per the Canva mock. Both
+   lines are sized in em off .logo's font-size, so changing that one value
+   rescales the whole lockup.
+   --logo-word-track is tuned so the wordmark ends up the same width as the
+   mark above it — that flush-both-edges alignment is what makes it read as
+   a designed lockup rather than two stacked words. Retune it if either the
+   mark's tracking or the wordmark's font-size changes. */
+.logo-lockup { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1; }
+.logo-lockup .logo-mark { display: block; font-size: 1em; letter-spacing: var(--track-mark); }
+.logo-lockup .logo-word {
+  display: block; font-size: 0.22em;
+  letter-spacing: var(--logo-word-track);
+  /* Negative because the gap is mostly the mark's internal leading (its line
+     box is taller than its cap height), not spacing we added. em here is the
+     wordmark's own font-size, so the tuck scales with the lockup. */
+  margin-top: -0.83em;
 }
 .logo:hover { color: var(--accent); text-decoration: none; }
 .logo span { color: var(--accent); }
@@ -216,6 +241,17 @@ h3 { font-size: 1.2rem; letter-spacing: .5px; }
   color: var(--muted); text-transform: uppercase; letter-spacing: 2px;
   font-family: var(--display-font); text-align: center; padding: 24px;
 }
+
+/* Photo frame. Reserves a 3:2 box before the image loads so the page below
+   doesn't jump, and keeps the placeholder stripes as the background so a
+   missing file degrades to the old placeholder look rather than a void. */
+.media-frame {
+  aspect-ratio: 3 / 2;
+  background: repeating-linear-gradient(45deg, #131313, #131313 18px, #171717 18px, #171717 36px);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.media-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* ---- Buttons ------------------------------------------------ */
 /* Square, hard-edged, no lift on hover — the hover is a straight

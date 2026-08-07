@@ -29,7 +29,10 @@
 
   <header class="site-header">
     <div class="container nav">
-      <a class="logo" href="index.html" aria-label="Baseline Rally home">B<span>L</span>R</a>
+      <!-- Logo lockup: big BLR with the wordmark tucked underneath, matching
+           the Canva mock. aria-label carries the real name because the visible
+           wordmark is set solid ("baselinerally") to match the artwork. -->
+      <a class="logo logo-lockup" href="index.html" aria-label="Baseline Rally home"><span class="logo-mark">BLR</span><span class="logo-word">Baselinerally</span></a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
       <ul class="nav-links" id="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -65,10 +68,16 @@
       </div>
     </section>
 
-    <!-- Featured image placeholder -->
+    <!-- Featured image -->
     <section class="section">
       <div class="container">
-        <div class="media-placeholder">Featured Image — add from Dropbox</div>
+        <!-- The frame keeps the striped placeholder as its background and
+             reserves a 3:2 box, so the page never jumps as the photo loads.
+             width/height match the exported file's aspect ratio. -->
+        <div class="media-frame">
+          <img src="img/home-featured.jpg" width="1600" height="1067"
+               alt="Two BMW Z3 M Coupes, one blue and one teal, parked on the grass overlooking Lake Michigan, both wearing Baseline Rally door decals." />
+        </div>
       </div>
     </section>
 
